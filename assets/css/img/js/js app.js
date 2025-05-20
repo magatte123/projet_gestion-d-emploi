@@ -1,32 +1,48 @@
-document.addEventListener("DOMContentLoaded", () =>{
-    //initialisation de la base donnée simulé
-    let user = JSON.parse(localStorage.getItem("users"))||[];
-    //Gestion d'inscription
-    document.getElementById("formInscrip").addEventListener("submit",function(e){
-        e.preventDefault();
-        //recuperation des champs
-        const userName = document.getElementById("userName").value;
-        const email = document.getElementById("mail").value;
-        const motDePasse = document.getElementById("mdp").value;
-        //verifier si l'email exixte deja
-        let EmailExiste = user.find((u) => u.email === email);
-        if(EmailExiste){
-            alert("email existe deja");
+ document.addEventListener("DOMContentLoaded", () =>{
+
+    //  //initialisation de la base donnée simulé
+    //  let user = JSON.parse(localStorage.getItem("users"))||[];
+    //  //Gestion d'inscription
+    //  document.getElementById("formInscrip").addEventListener("submit",function(e){
+    //      e.preventDefault();
+    //      //recuperation des champs
+    //      const userName = document.getElementById("userName").value;
+    //      const email = document.getElementById("mail").value;
+    //      const motDePasse = document.getElementById("mdp").value;
+    //      //verifier si l'email exixte deja
+    //      let EmailExiste = user.find((u) => u.email === email);
+    //    if(EmailExiste){
+    //          alert("email existe deja");
             
-        }else{
-            const newUser = {userName,email,motDePasse};
-            user.push(newUser);
-            localStorage.setItem("users", JSON.stringify(user));
-            alert("Inscription reussit");
-        }	
-        console.log(userName, email, motDePasse);
-        const newUser = {userName,email,motDePasse};
-        user.push(newUser);
-        localStorage.setItem("user", JSON.stringify(user));
-        alert("Inscription reussit");
+    //     }else{
+    //          const newUser = {userName,email,motDePasse};
+    //          user.push(newUser);
+    //          localStorage.setItem("users", JSON.stringify(user));
+    //          alert("Inscription reussit");
+    //      }	
+    //      console.log(userName, email, motDePasse);
+    //      const newUser = {userName,email,motDePasse};
+    //      user.push(newUser);
+    //      localStorage.setItem("user", JSON.stringify(user));
+    //      alert("Inscription reussit");
     
         
+    
+function register(e) {
+  e.preventDefault();
+  fetch('http://localhost:3000/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value
     })
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message || data.error));
+}
+
 
 
 

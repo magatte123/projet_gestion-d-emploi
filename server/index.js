@@ -2,7 +2,7 @@
 const http = require('http'); 
 const fs = require('fs'); 
 const path = require('path'); 
-
+const bcrypt = require('bcrypt');
 
 const usersFile = path.join(__dirname, 'data', 'users.json'); 
 
@@ -37,34 +37,47 @@ const server = http.createServer((req, res) => {
     }
 
 if (req.url === '/register' && req.method === 'POST') { 
-  parseBody(req, (userData) => { //pour recuperer le corps dans le http
-  const users = getUsers(); 
-  const exists = users.find(u => u.email === userData.email);//si l'email existe deja 
-  if (exists) { 
-    res.writeHead(400, { 'Content-Type': 'application/json' }); 
-    return res.end(JSON.stringify({ error: 'Email déjà utilisé' })); 
-  } 
-  users.push(userData); 
-  saveUsers(users); //permet de rentrer les données dans le fichier json
-  res.writeHead(201, { 'Content-Type': 'application/json' }); 
-  res.end(JSON.stringify({ message: 'Inscription réussie' })); 
+  parseBody(req, async (userData) => { 
+    const users = getUsers(); 
+    const exists = users.find(u => u.email === userData.email);
+    if (exists) { 
+      res.writeHead(400, { 'Content-Type': 'application/json' }); 
+      return res.end(JSON.stringify({ error: 'Email déjà utilisé' })); 
+    } 
+    // Hash du mot de passe AVANT d'enregistrer
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    userData.password = hashedPassword;
+    users.push(userData); 
+    saveUsers(users);
+    res.writeHead(201, { 'Content-Type': 'application/json' }); 
+    res.end(JSON.stringify({ message: 'Inscription réussie' })); 
   }); 
 } 
 else if (req.url === '/login' && req.method === 'POST') { 
-  parseBody(req, (loginData) => { 
-  const users = getUsers(); 
-  const found = users.find(u => u.email === loginData.email && u.password === 
-  loginData.password); 
-  if (found) { 
-        res.writeHead(200, { 'Content-Type': 'application/json' }); 
-        res.end(JSON.stringify({ message: 'Connexion réussie' })); 
-      } 
-  else { 
-        res.writeHead(401, { 'Content-Type': 'application/json' }); 
-        res.end(JSON.stringify({ error: 'Email ou mot de passe incorrect' })); 
-      } 
-    }); 
+  parseBody(req, async (loginData) => { 
+    const users = getUsers(); 
+    const user = users.find(u => u.email === loginData.email);
+    if (!user) { 
+      res.writeHead(401, { 'Content-Type': 'application/json' }); 
+      return res.end(JSON.stringify({ error: 'Email ou mot de passe incorrect' })); 
+    } 
+    // Vérifie le mot de passe hashé
+    const isMatch = await bcrypt.compare(loginData.password, user.password);
+    if (!isMatch) {
+      res.writeHead(401, { 'Content-Type': 'application/json' }); 
+      return res.end(JSON.stringify({ error: 'Email ou mot de passe incorrect' })); 
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' }); 
+    res.end(JSON.stringify({ message: 'Connexion réussie' })); 
+  }); 
 } 
+else if (req.url === '/users' && req.method === 'GET') {
+  const users = getUsers();
+  // On retire le mot de passe de chaque utilisateur
+  const usersSansMdp = users.map(({ password, ...rest }) => rest);
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(usersSansMdp));
+}
 else { 
   res.writeHead(404); 
   res.end(); 
@@ -72,6 +85,6 @@ else {
 
 
 server.listen(3000, () => { 
-console.log('Serveur démarré sur http://locahost:3000'); 
+console.log('Serveur démarré sur http://locahost:3000'); 
 });
 

@@ -46,5 +46,23 @@
     "name": "binta",
     "email": "binta@12",
     "password": "$2b$10$gNKviNtL9.DV6EG.JUT0nuJkku3cPfG9rMrwVbygRzZ69IkkqnSY."
+  },
+  {
+    "id": "13acf25d-bdb8-4c3a-8138-e335805ef3a2",
+    "name": "astou",
+    "email": "astou12@gmail.com",
+    "password": "$2b$10$fb9olT84RgtiLDel.xYn7umpj2pkoGKrTQ99hWgqP30j6HTqkkPhu"
+  },
+  {
+    "id": "481b2827-cb55-40e3-8f53-2ecd2beb816f",
+    "name": "astou",
+    "email": "astou12@gmail.com",
+    "password": "$2b$10$A5JnbEU2mK2rlqkE6plX8uO/djj3dRJSG0S6i1iNYaQCOrcnNJehm"
+  },
+  {
+    "id": "97feaba5-78b6-4daf-9748-c1c984cad513",
+    "name": "cole",
+    "email": "colle@12gamil.com",
+    "password": "$2b$10$pA0jD0V8pRASld/wXSwbGuzElEBLJzjMblzOCDFPWyWgi7gb/0AX."
   }
 ]

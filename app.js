@@ -20,6 +20,7 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
         id: uuidv4(),
+        // signifie que tu crées un identifiant unique (UUID) pour chaque nouvel utilisateur inscrit.
         name,
         email,
         password: hashedPassword

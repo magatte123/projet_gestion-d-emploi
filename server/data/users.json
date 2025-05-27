@@ -23,24 +23,7 @@
     "email": "max@123",
     "password": "$2b$10$yfFX8bww81xVF92l3sby2ONAvIz4Ft3Dtat6ZMIehIUzCDI2ePQ8q"
   },
-  {
-    "id": "ca4a9a5a-6a5a-43c4-822d-62088a6221a6",
-    "name": "maman",
-    "email": "soci@1",
-    "password": "$2b$10$HyhfyB7djRWPwByhQSCS2.dAbLUaLQsp/0cR2h/.PYLJA91rTTQDu"
-  },
-  {
-    "id": "caf3f4c4-834c-4813-b3d9-d3872a7760fe",
-    "name": "papa",
-    "email": "papa@12",
-    "password": "$2b$10$zeEonw6w220NDpgsEhyT5ejE24EQzdBzZKGvtz/JlV5U6GnAMxvRG"
-  },
-  {
-    "id": "a904a7f4-3461-40de-a516-d963dfb7ea68",
-    "name": "papa",
-    "email": "papa@12",
-    "password": "$2b$10$FDvfDUYv2zJK6uUfCtj8xO5cst9xZK8PTZTX5CJMyUHuK6lFCNPpK"
-  },
+  
   {
     "id": "9b488a1b-18ba-444e-8f9f-ab432a48173e",
     "name": "binta",
@@ -64,5 +47,10 @@
     "name": "cole",
     "email": "colle@12gamil.com",
     "password": "$2b$10$pA0jD0V8pRASld/wXSwbGuzElEBLJzjMblzOCDFPWyWgi7gb/0AX."
+  },
+  {
+    "name": "soda",
+    "email": "soda@gmail.com",
+    "password": "$2b$10$uErSDTeN73k7v7mUqcBAleb2TFf7JXH5M08m1y.D1RKn2IMVr86bG"
   }
 ]
